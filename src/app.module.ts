@@ -12,11 +12,11 @@ import { FileEntity } from './files/entities/file.entity';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'lallah.db.elephantsql.com',
-      port: 5432,
-      username: 'mxsfoftt',
-      password: 'h4rItN5e2m_Ik9zsXMFJVY4h8wMKL2vo',
-      database: 'mxsfoftt',
+      host: process.env.DB_HOST,
+      port: Number(process.env.DB_PORT),
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
       entities: [UserEntity, FileEntity],
       synchronize: true,
     }),
