@@ -10,19 +10,19 @@ import { FileEntity } from './files/entities/file.entity';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.DB_HOST,
-      port: Number(process.env.DB_PORT),
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_DATABASE,
+      host: 'lallah.db.elephantsql.com',
+      username: 'mxsfoftt',
+      password: 'h4rItN5e2m_Ik9zsXMFJVY4h8wMKL2vo',
+      database: 'mxsfoftt',
       entities: [UserEntity, FileEntity],
       synchronize: true,
+      retryDelay: 1000,
     }),
     UsersModule,
     FilesModule,
-    ConfigModule.forRoot(),
   ],
   controllers: [AppController],
   providers: [AppService],
