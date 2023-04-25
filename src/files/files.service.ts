@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreateFileDto } from './dto/create-file.dto';
-import { UpdateFileDto } from './dto/update-file.dto';
-import { FileEntity,FileType } from './entities/file.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { FileEntity, FileType } from './entities/file.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -28,26 +26,26 @@ export class FilesService {
     return qb.getMany();
   }
 
-  // create(file: Express.Multer.File, userId: number) {
-  //   return this.repository.save({
-  //     filename: file.filename,
-  //     originalName: file.originalname,
-  //     size: file.size,
-  //     mimetype: file.mimetype,
-  //     user: { id: userId },
-  //   });
-  // }
+  create(file: Express.Multer.File, userId: number) {
+    return this.repository.save({
+      filename: file.filename,
+      originalName: file.originalname,
+      size: file.size,
+      mimetype: file.mimetype,
+      user: { id: userId },
+    });
+  }
 
-  // async remove(userId: number, ids: string) {
-  //   const idsArray = ids.split(',');
+  async remove(userId: number, ids: string) {
+    const idsArray = ids.split(',');
 
-  //   const qb = this.repository.createQueryBuilder('file');
+    const qb = this.repository.createQueryBuilder('file');
 
-  //   qb.where('id IN (:...ids) AND userId = :userId', {
-  //     ids: idsArray,
-  //     userId,
-  //   });
+    qb.where('id IN (:...ids) AND userId = :userId', {
+      ids: idsArray,
+      userId,
+    });
 
-  //   return qb.softDelete().execute();
-  // }
+    return qb.softDelete().execute();
+  }
 }
